@@ -1,0 +1,30 @@
+﻿@model IEnumerable<HabitTracker.Models.HabitRecord>
+
+@{
+    ViewBag.Title = "Habit Record List";
+}
+
+<h2>Habit Record List</h2>
+
+<table class="table">
+    <tr>
+        <th>Habit</th>
+        <th>Date</th>
+        <th>Is Completed</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Habit.Name)</td>
+            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsCompleted)</td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Create New Habit Record", "Create")
+</p>
