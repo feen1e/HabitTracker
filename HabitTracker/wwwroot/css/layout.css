@@ -1,0 +1,96 @@
+﻿:root{
+    --spacecadet: #2D3250;
+    --delftblue: #424769;
+    --glaucous: #7077A1;
+    --fawn: #F6B17A;
+    --tearosered: #E8C1C5;
+    --raisinblack: #221E22;
+    --darkpurple: #31263E;
+    --englishviolet: #44355B;
+    --flame: #EE5622;
+    --hunyadiyello: #ECA72C;
+    
+    --tearose: #E5C2C0;
+    --celadon: #8FD5A6;
+    --shamrockgreen: #329F5B;
+    --seagreen: #0C8346;
+    --carribeancurrent: #0D5D56;
+    
+/*    --teagreen: #ccd5ae;
+    --beige: #e9edc9;
+    --cornsilk: #fefae0;
+    --papayawhip: #faedcd;
+    --buff: #d4a373;*/
+}
+
+body{
+    box-sizing: border-box;
+    font-size: 10px;
+    background: var(--seagreen);
+    margin: 0;
+    padding: 0;
+    font-family: "Tilt Warp", sans-serif;
+}
+
+header{
+    margin-bottom: 60px;
+}
+
+nav{
+    color: var(--tearose);
+    font-size: 3em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+    background: var(--carribeancurrent);
+    height: 60px;
+}
+
+nav a{
+    text-decoration: none;
+    color: var(--tearose);
+    font-weight: bolder;
+}
+
+nav ul a{
+    color: var(--tearose);
+    font-weight: lighter;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+    list-style: none;
+}
+
+main{
+    margin: 80px auto 20px;
+    min-height: calc(100vh - 100px);
+    width: 80%;
+    background: var(--shamrockgreen);
+    
+}
+
+footer{
+    width: 100%;
+    height: 40px;
+    background: var(--carribeancurrent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: var(--tearose);
+}

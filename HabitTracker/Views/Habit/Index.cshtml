@@ -4,7 +4,22 @@
     ViewBag.Title = "Habit List";
 }
 
-<h2>Habit List</h2>
+@section Styles
+{
+    <link/>
+}
+
+<h2>Your Habits</h2>
+
+@foreach (var item in Model)
+{
+    <div>
+        <h3>@Html.DisplayFor(i => item.Name)</h3>
+        <p>@Html.DisplayFor(i => item.IsActive)</p>
+        <p>@Html.DisplayFor(i => item.Amount)</p>
+        <p>@Html.DisplayFor(i => item.Unit)</p>
+    </div>
+}
 
 <table class="table">
     <tr>
@@ -18,8 +33,9 @@
     {
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.Amount)</td>
             <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+            <td>@Html.DisplayFor(modelitem => item.HabitRecords.LastOrDefault().IsCompleted)</td>
         </tr>
     }
 

@@ -69,10 +69,14 @@ namespace HabitTracker.Controllers
         }
 
 
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        public ActionResult ToggleCompletion(int habitId, DateTime date)
+        [HttpPost]
+        public async Task<IActionResult> ToggleCompletion(int habitId, DateTime date)
         {
-            var record = db.HabitRecords.FirstOrDefault(hr => hr.HabitId == habitId && hr.Date == date);
+            date = date.Date;
+
+            var record = await db.HabitRecords
+                .FirstOrDefaultAsync(hr => hr.HabitId == habitId && hr.Date == date);
+
             if (record == null)
             {
                 record = new HabitRecord { HabitId = habitId, Date = date, IsCompleted = true };
@@ -84,11 +88,11 @@ namespace HabitTracker.Controllers
                 db.Entry(record).State = EntityState.Modified;
             }
 
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Details", new { id = habitId });
         }
 
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,IsActive")] Habit habit)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Unit,IsActive")] Habit habit)
         {
             if (id != habit.Id)
             {
