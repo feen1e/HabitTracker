@@ -14,10 +14,10 @@
 <body>
 <header>
     <nav>
-        <a asp-area="" asp-controller="Habit" asp-action="Index">Habit Tracker</a>
+        <div id="homebutton"><a asp-area="" asp-controller="Habit" asp-action="Index">Habit Tracker</a></div>
         <ul>
             <li>
-                <a asp-area="" asp-controller="Habit" asp-action="Index">Your Habits</a>
+                <a asp-area="" asp-controller="Habit" asp-action="List">Your Habits</a>
             </li>
             <li>
                 <a asp-area="" asp-controller="Habit" asp-action="Create">Create a new habit</a>
@@ -26,9 +26,7 @@
     </nav>
 </header>
 <div>
-    <main>
         @RenderBody()
-    </main>
 </div>
 
 <footer>

@@ -29,7 +29,7 @@ body{
     background: var(--seagreen);
     margin: 0;
     padding: 0;
-    font-family: "Tilt Warp", sans-serif;
+    font-family: "Segoe UI", sans-serif;
 }
 
 header{
@@ -59,9 +59,16 @@ nav a{
     font-weight: bolder;
 }
 
+#homebutton{
+    font-size: 1.25em;
+    position: relative;
+    bottom: 3px;
+}
+
 nav ul a{
     color: var(--tearose);
-    font-weight: lighter;
+    font-weight: normal;
+    font-size: 1em;
 }
 
 nav ul{

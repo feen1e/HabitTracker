@@ -2,7 +2,6 @@
 using HabitTracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 using Controller = Microsoft.AspNetCore.Mvc.Controller;
 
 namespace HabitTracker.Controllers
@@ -18,8 +17,29 @@ namespace HabitTracker.Controllers
             db = new ApplicationDbContext(optionsBuilder.Options);
         }
 
-
         public IActionResult Index()
+        {
+            var habits = db.Habits.Include(habit => habit.HabitRecords).ToList();
+            int habitsRemaining = 0;
+            foreach (var habit in habits)
+            {
+                bool hasRecordToday = habit.HabitRecords.Any(hr => hr.Date.Date == DateTime.Today && hr.IsCompleted);
+                if (!hasRecordToday)
+                {
+                    habitsRemaining++;
+                }
+                foreach (var a in habit.HabitRecords.Select(hr => hr))
+                {
+                    Console.WriteLine($"{a.Date} === {DateTime.Today} wykonany: {(a.IsCompleted ? "tak" : "nie")}");
+                };
+            }
+            Console.WriteLine(habitsRemaining + " pozostalo");
+            var habitHome = new HabitHomeView(habits, habitsRemaining);
+            
+            return View(habitHome);
+        }
+        
+        public IActionResult List()
         {
             return View(db.Habits.ToList());
         }
@@ -29,9 +49,9 @@ namespace HabitTracker.Controllers
             return View();
         }
 
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.ValidateAntiForgeryToken]
-        public IActionResult Create([Microsoft.AspNetCore.Mvc.Bind("Id,Name,Description,IsActive")] Habit habit)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Id,Name,Unit,Amount,IsActive")] Habit habit)
         {
             if (ModelState.IsValid)
             {

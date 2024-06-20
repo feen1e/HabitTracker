@@ -34,7 +34,7 @@ namespace HabitTracker
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Habit}/{action=Index}/{id?}");
+                pattern: "{controller=Habit}/{action=Index}/");
 
             app.Run();
         }

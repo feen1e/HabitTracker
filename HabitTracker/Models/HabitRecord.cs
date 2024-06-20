@@ -2,7 +2,7 @@
 
 namespace HabitTracker.Models
 {
-    public class HabitRecord
+    public sealed class HabitRecord
     {
         public int Id { get; set; }
         public int HabitId { get; set; }
@@ -11,6 +11,6 @@ namespace HabitTracker.Models
         public DateTime Date { get; set; }
         public bool IsCompleted { get; set; }
 
-        public virtual Habit Habit { get; set; }
+        public Habit Habit { get; set; }
     }
 }
