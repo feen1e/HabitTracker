@@ -21,13 +21,15 @@
 </h1>
 
 <main>
+    <ul>
     @foreach (var item in Model.Habits)
     {
-    <div>
-        <h3>@Html.DisplayFor(i => item.Name)</h3>
-        <p>@Html.DisplayFor(i => item.IsActive)</p>
-        <p>@Html.DisplayFor(i => item.Amount)</p>
-        <p>@Html.DisplayFor(i => item.Unit)</p>
-    </div>
+        <li class="list-item">
+            <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
+            <p class="is-active">@Html.DisplayFor(i => item.IsActive)</p>
+            <p class="amount">@Html.DisplayFor(i => item.Amount)</p>
+            <p class="unit">@Html.DisplayFor(i => item.Unit)</p>
+        </li>
     }
+    </ul>
 </main>

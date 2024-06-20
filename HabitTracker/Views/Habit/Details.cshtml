@@ -1,4 +1,5 @@
-﻿@model HabitTracker.Models.HabitDetails
+﻿@*
+@model HabitTracker.Models.HabitDetails
 
 @{
 ViewBag.Title = "Habit Details";
@@ -41,3 +42,69 @@ ViewBag.Title = "Habit Details";
 <p>
     <a asp-action="Index">Back to List</a>
 </p>
+*@
+@model HabitTracker.Models.HabitDetails
+
+<h2>@Model.Habit.Name Calendar</h2>
+
+<div class="calendar">
+    <table>
+        <thead>
+        <tr>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+            <th>Sun</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var week in Model.CalendarWeeks)
+        {
+        <tr>
+            @foreach (var day in week.Days)
+            {
+            <td class="@day.CssClass">
+                @day.DayNumber
+            </td>
+            }
+        </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .calendar {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    .calendar table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .calendar th,
+    .calendar td {
+        border: 1px solid #ccc;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .calendar .marked {
+        background-color: lightgreen;
+    }
+
+    .calendar .not-marked {
+        background-color: lightgray;
+    }
+
+    .calendar .previous-month {
+        color: #ccc;
+    }
+
+</style>

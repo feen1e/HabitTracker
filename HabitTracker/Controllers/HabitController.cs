@@ -63,7 +63,7 @@ namespace HabitTracker.Controllers
             return View(habit);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        /*public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -86,7 +86,7 @@ namespace HabitTracker.Controllers
             };
 
             return View(model);
-        }
+        }*/
 
 
         [HttpPost]
@@ -147,6 +147,66 @@ namespace HabitTracker.Controllers
         private bool HabitExists(int id)
         {
             return db.Habits.Any(e => e.Id == id);
+        }
+        
+        public async Task<IActionResult> Details(int id)
+        {
+            var habit = await db.Habits
+                .Include(h => h.HabitRecords)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (habit == null)
+            {
+                return NotFound();
+            }
+
+            var calendarWeeks = GenerateCalendarWeeks(habit.HabitRecords.ToList());
+
+            var viewModel = new HabitDetails()
+            {
+                Habit = habit,
+                CalendarWeeks = calendarWeeks
+            };
+
+            return View(viewModel);
+        }
+
+        private List<CalendarWeek> GenerateCalendarWeeks(List<HabitRecord> records)
+        {
+            List<CalendarWeek> calendarWeeks = new List<CalendarWeek>();
+
+            DateTime currentDate = DateTime.Today;
+            DateTime firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+            int daysUntilMonday = ((int)firstDayOfMonth.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
+            DateTime firstMondayOfMonth = firstDayOfMonth.AddDays(-daysUntilMonday);
+
+            for (int weekIndex = 0; weekIndex < 4; weekIndex++)
+            {
+                CalendarWeek week = new CalendarWeek();
+                week.Days = new List<CalendarDay>();
+                
+                for (int dayIndex = 0; dayIndex < 7; dayIndex++)
+                {
+                    DateTime currentDay = firstMondayOfMonth.AddDays(weekIndex * 7 + dayIndex);
+                    
+                    bool isPreviousMonth = currentDay.Month != currentDate.Month;
+                    
+                    bool hasRecord = records.Any(r => r.Date.Date == currentDay.Date);
+
+                    string cssClass = hasRecord ? "marked" : "not-marked";
+
+                    if (isPreviousMonth)
+                    {
+                        cssClass += " previous-month";
+                    }
+                    
+                    week.Days.Add(new CalendarDay { DayNumber = currentDay.Day, CssClass = cssClass });
+                }
+
+                calendarWeeks.Add(week);
+            }
+
+            return calendarWeeks;
         }
     }
 }
