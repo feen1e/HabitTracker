@@ -88,9 +88,10 @@ main{
     margin: 80px auto 20px;
     min-height: calc(100vh - 100px);
     width: 80%;
-    background: var(--carribeancurrent);
-    border: 1px transparent;
+    background: ghostwhite;
+    border: solid 2px var(--carribeancurrent);
     border-radius: 50px;
+    box-shadow: 0 0 30px 10px var(--carribeancurrent);
 }
 
 footer{

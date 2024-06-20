@@ -5,6 +5,7 @@
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
+    text-shadow: 0 0 5px var(--carribeancurrent) ;
 }
 
 main ul{
