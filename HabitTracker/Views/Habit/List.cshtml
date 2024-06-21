@@ -16,10 +16,12 @@ ViewBag.Title = "Habit List";
         @foreach (var item in Model)
         {
             <li class="list-item">
-                <div class="habit-details">
-                    <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
-                    <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
-                </div>
+                <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">
+                    <div class="habit-details">
+                        <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
+                        <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
+                    </div>
+                </a>
                 <p class="is-active">
                     @if (item.IsActive)
                     {
@@ -27,7 +29,7 @@ ViewBag.Title = "Habit List";
                     }
                     else
                     {
-                        <span class="status inactive">Not Active &#10007;</span>
+                        <span class="status inactive">Inactive &#10007;</span>
                     }
                 </p>
                 <button class="completion-status">
@@ -37,5 +39,5 @@ ViewBag.Title = "Habit List";
         }
     </ul>
     
-    <h4>Add another</h4>
+    <h4><a asp-controller="Habit" asp-action="Create">Add another</a></h4>
 </main>

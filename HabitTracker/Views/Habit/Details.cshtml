@@ -1,7 +1,13 @@
 ﻿@model HabitTracker.Models.HabitDetails
 
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/details.css" />
+}
+
 <h2>@Model.Habit.Name Calendar</h2>
 
+<main>
 <div class="calendar">
     <table>
         <thead>
@@ -16,22 +22,29 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var week in Model.CalendarWeeks)
-        {
-        <tr>
-            @foreach (var day in week.Days)
+        @{
+            foreach (var week in Model.CalendarWeeks)
             {
-            <td class="@day.CssClass">
-                @day.DayNumber
-            </td>
+                <tr>
+                    @foreach (var day in week.Days)
+                    {
+                        <td class="@day.CssClass">
+                            <form asp-action="ToggleCompletion" method="post">
+                                <input type="hidden" name="habitId" value="@Model.Habit.Id" />
+                                <input type="hidden" name="date" value="@day.Date.ToString("yyyy-MM-dd")" />
+                                <input type="submit" value="@day.DayNumber"/>
+                            </form>
+                        </td>
+                    }
+                </tr>
             }
-        </tr>
         }
         </tbody>
     </table>
 </div>
+</main>
 
-<table class="table">
+@*<table class="table">
     <thead>
     <tr>
         <th>Date</th>
@@ -60,41 +73,12 @@
     }
     }
     </tbody>
-</table>
+</table>*@
 
 <p>
     <a asp-action="Index">Back to List</a>
 </p>
 
 <style>
-    .calendar {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-top: 10px;
-    }
-
-    .calendar table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .calendar th,
-    .calendar td {
-        border: 1px solid #ccc;
-        text-align: center;
-        padding: 5px;
-    }
-
-    .calendar .marked {
-        background-color: lightgreen;
-    }
-
-    .calendar .not-marked {
-        background-color: lightgray;
-    }
-
-    .calendar .previous-month {
-        color: #ccc;
-    }
 
 </style>

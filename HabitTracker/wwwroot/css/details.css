@@ -1,0 +1,47 @@
+﻿input[type="submit"] {
+    color: inherit;
+    background: inherit;
+    border: transparent;
+    width: 20px;
+    height: 20px;
+}
+
+h2 {
+    margin: 50px auto 20px;
+    padding: 50px 50px 10px;
+    font-size: 4.5rem;
+    color: var(--carribeancurrent);
+    font-weight: bolder;
+    text-align: center;
+    text-shadow: 0 0 5px var(--carribeancurrent);
+}
+
+.calendar {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.calendar table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar th,
+.calendar td {
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 5px;
+}
+
+.calendar .marked {
+    background-color: lightgreen;
+}
+
+.calendar .not-marked {
+    background-color: lightgray;
+}
+
+.calendar .previous-month {
+    color: #ccc;
+}

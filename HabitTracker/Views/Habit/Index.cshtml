@@ -7,7 +7,7 @@
 @section Styles
 {
     <link rel="stylesheet" href="~/css/index.css"/>
-    <link rel="stylesheet" href="~/css/list.css" />
+    <link rel="stylesheet" href="~/css/list.css"/>
 }
 
 <h1 id="habitsRemaining">
@@ -26,10 +26,12 @@
         @foreach (var item in Model.Habits)
         {
             <li class="list-item">
+                <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">
                 <div class="habit-details">
                     <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
                     <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
                 </div>
+                </a>
                 <p class="is-active">
                     @if (item.IsActive)
                     {
@@ -37,12 +39,13 @@
                     }
                     else
                     {
-                        <span class="status inactive">Not Active &#10007;</span>
+                        <span class="status inactive">Inactive &#10007;</span>
                     }
                 </p>
-                <button class="completion-status">
-                    @(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")
-                </button>
+                <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
+                    <input type="hidden" name="habitId" value="@item.Id"/>
+                    <input type="submit" class="completion-status" value="@(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
+                </form>
             </li>
         }
     </ul>

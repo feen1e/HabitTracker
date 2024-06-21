@@ -68,8 +68,8 @@ nav ul {
 }
 
 main {
-    margin: 80px auto 20px;
-    min-height: calc(100vh - 100px);
+    margin: 80px auto 50px;
+    min-height: calc(70vh - 100px);
     width: 80%;
     background: ghostwhite;
     border: solid 2px var(--carribeancurrent);

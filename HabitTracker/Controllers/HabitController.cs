@@ -24,6 +24,7 @@ namespace HabitTracker.Controllers
             List<HabitRecord> habitRecordsToday = new();
             foreach (var habit in habits)
             {
+                if (!habit.IsActive) continue;
                 bool hasRecordToday = habit.HabitRecords.Any(hr => hr.Date.Date == DateTime.Today && hr.IsCompleted);
                 if (!hasRecordToday)
                 {
@@ -89,6 +90,28 @@ namespace HabitTracker.Controllers
 
             await db.SaveChangesAsync();
             return RedirectToAction("Details", new { id = habitId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleCompletionToday(int habitId)
+        {
+            var date = DateTime.Today;
+            var record = await db.HabitRecords
+                .FirstOrDefaultAsync(hr => hr.HabitId == habitId && hr.Date == date);
+
+            if (record == null)
+            {
+                record = new HabitRecord { HabitId = habitId, Date = date, IsCompleted = true };
+                db.HabitRecords.Add(record);
+            }
+            else
+            {
+                record.IsCompleted = !record.IsCompleted;
+                db.Entry(record).State = EntityState.Modified;
+            }
+
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
         
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Unit,IsActive")] Habit habit)
@@ -159,7 +182,7 @@ namespace HabitTracker.Controllers
             int daysUntilMonday = ((int)firstDayOfMonth.DayOfWeek - (int)DayOfWeek.Monday + 7) % 7;
             DateTime firstMondayOfMonth = firstDayOfMonth.AddDays(-daysUntilMonday);
 
-            for (int weekIndex = 0; weekIndex < 4; weekIndex++)
+            for (int weekIndex = 0; weekIndex <= 4; weekIndex++)
             {
                 CalendarWeek week = new CalendarWeek();
                 week.Days = new List<CalendarDay>();
@@ -170,7 +193,7 @@ namespace HabitTracker.Controllers
                     
                     bool isPreviousMonth = currentDay.Month != currentDate.Month;
                     
-                    bool hasRecord = records.Any(r => r.Date.Date == currentDay.Date);
+                    bool hasRecord = records.Any(r => r.Date.Date == currentDay.Date && r.IsCompleted);
 
                     string cssClass = hasRecord ? "marked" : "not-marked";
 
@@ -179,7 +202,7 @@ namespace HabitTracker.Controllers
                         cssClass += " previous-month";
                     }
                     
-                    week.Days.Add(new CalendarDay { DayNumber = currentDay.Day, CssClass = cssClass });
+                    week.Days.Add(new CalendarDay { DayNumber = currentDay.Day, CssClass = cssClass, Date = currentDay});
                 }
 
                 calendarWeeks.Add(week);
