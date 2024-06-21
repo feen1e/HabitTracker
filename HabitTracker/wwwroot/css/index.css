@@ -5,28 +5,10 @@
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
-    text-shadow: 0 0 5px var(--carribeancurrent) ;
+    text-shadow: 0 0 5px var(--carribeancurrent);
 }
 
-main ul{
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    list-style: none;
-    justify-content: end;
-    align-items: center;
-}
-
-.list-item{
-    margin: 20px auto;
-    display: block;
-    width: 90%;
-    height: 100px;
-    padding: 20px;
-    border: transparent 1px;
-    border-radius: 50px;
-    background: var(--shamrockgreen);
+main {
+    min-height: auto !important;
+    margin-bottom: 50px;
 }

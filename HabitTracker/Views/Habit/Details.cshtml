@@ -1,49 +1,4 @@
-﻿@*
-@model HabitTracker.Models.HabitDetails
-
-@{
-ViewBag.Title = "Habit Details";
-}
-
-<h2>@Model.Habit.Name</h2>
-<p>@Model.Habit.Amount @Model.Habit.Unit</p>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Date</th>
-        <th>Completed</th>
-        <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    @{
-    var startDate = DateTime.Now.AddDays(-30);
-    var endDate = DateTime.Now;
-    for (var date = startDate; date <= endDate; date = date.AddDays(1))
-    {
-    var record = Model.HabitRecords.FirstOrDefault(r => r.Date.Date == date.Date);
-    <tr>
-        <td>@date.ToShortDateString()</td>
-        <td>@(record != null && record.IsCompleted ? "Yes" : "No")</td>
-        <td>
-            <form asp-action="ToggleCompletion" method="post">
-                <input type="hidden" name="habitId" value="@Model.Habit.Id" />
-                <input type="hidden" name="date" value="@date.ToString("yyyy-MM-dd")" />
-                <input type="submit" value="Toggle" class="btn btn-primary" />
-            </form>
-        </td>
-    </tr>
-    }
-    }
-    </tbody>
-</table>
-
-<p>
-    <a asp-action="Index">Back to List</a>
-</p>
-*@
-@model HabitTracker.Models.HabitDetails
+﻿@model HabitTracker.Models.HabitDetails
 
 <h2>@Model.Habit.Name Calendar</h2>
 
@@ -75,6 +30,41 @@ ViewBag.Title = "Habit Details";
         </tbody>
     </table>
 </div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date</th>
+        <th>Completed</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @{
+    var startDate = DateTime.Now.AddDays(-30);
+    var endDate = DateTime.Now;
+    for (var date = startDate; date <= endDate; date = date.AddDays(1))
+    {
+    var record = Model.Habit.HabitRecords.FirstOrDefault(r => r.Date.Date == date.Date);
+    <tr>
+        <td>@date.ToShortDateString()</td>
+        <td>@(record != null && record.IsCompleted ? "Yes" : "No")</td>
+        <td>
+            <form asp-action="ToggleCompletion" method="post">
+                <input type="hidden" name="habitId" value="@Model.Habit.Id" />
+                <input type="hidden" name="date" value="@date.ToString("yyyy-MM-dd")" />
+                <input type="submit" value="Toggle" class="btn btn-primary" />
+            </form>
+        </td>
+    </tr>
+    }
+    }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Index">Back to List</a>
+</p>
 
 <style>
     .calendar {

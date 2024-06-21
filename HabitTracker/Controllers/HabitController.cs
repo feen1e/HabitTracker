@@ -21,6 +21,7 @@ namespace HabitTracker.Controllers
         {
             var habits = db.Habits.Include(habit => habit.HabitRecords).ToList();
             int habitsRemaining = 0;
+            List<HabitRecord> habitRecordsToday = new();
             foreach (var habit in habits)
             {
                 bool hasRecordToday = habit.HabitRecords.Any(hr => hr.Date.Date == DateTime.Today && hr.IsCompleted);
@@ -28,13 +29,17 @@ namespace HabitTracker.Controllers
                 {
                     habitsRemaining++;
                 }
+                else
+                {
+                    habitRecordsToday.Add(habit.HabitRecords.First(hr => hr.Date == DateTime.Today && hr.IsCompleted));
+                }
                 foreach (var a in habit.HabitRecords.Select(hr => hr))
                 {
                     Console.WriteLine($"{a.Date} === {DateTime.Today} wykonany: {(a.IsCompleted ? "tak" : "nie")}");
                 };
             }
             Console.WriteLine(habitsRemaining + " pozostalo");
-            var habitHome = new HabitHomeView(habits, habitsRemaining);
+            var habitHome = new HabitHomeView(habits, habitsRemaining, habitRecordsToday);
             
             return View(habitHome);
         }
@@ -62,33 +67,7 @@ namespace HabitTracker.Controllers
 
             return View(habit);
         }
-
-        /*public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var habit = await db.Habits
-                .Include(h => h.HabitRecords)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (habit == null)
-            {
-                return NotFound();
-            }
-
-            var model = new HabitDetails
-            {
-                Habit = habit,
-                HabitRecords = habit.HabitRecords.ToList()
-            };
-
-            return View(model);
-        }*/
-
-
+        
         [HttpPost]
         public async Task<IActionResult> ToggleCompletion(int habitId, DateTime date)
         {
@@ -111,7 +90,7 @@ namespace HabitTracker.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Details", new { id = habitId });
         }
-
+        
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Unit,IsActive")] Habit habit)
         {
             if (id != habit.Id)

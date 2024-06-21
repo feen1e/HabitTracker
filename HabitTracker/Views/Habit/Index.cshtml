@@ -6,30 +6,44 @@
 
 @section Styles
 {
-    <link rel="stylesheet" href="~/css/index.css" />
+    <link rel="stylesheet" href="~/css/index.css"/>
+    <link rel="stylesheet" href="~/css/list.css" />
 }
 
 <h1 id="habitsRemaining">
     @if (Model.HabitsRemainingToday > 0)
     {
-    @($"You have {Model.HabitsRemainingToday} habits remaining today.")
+        @($"You have {Model.HabitsRemainingToday} habits remaining today.")
     }
     else
     {
-    @("You're all done. Great job!")
+        @("You're all done. Great job!")
     }
 </h1>
 
 <main>
     <ul>
-    @foreach (var item in Model.Habits)
-    {
-        <li class="list-item">
-            <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
-            <p class="is-active">@Html.DisplayFor(i => item.IsActive)</p>
-            <p class="amount">@Html.DisplayFor(i => item.Amount)</p>
-            <p class="unit">@Html.DisplayFor(i => item.Unit)</p>
-        </li>
-    }
+        @foreach (var item in Model.Habits)
+        {
+            <li class="list-item">
+                <div class="habit-details">
+                    <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
+                    <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
+                </div>
+                <p class="is-active">
+                    @if (item.IsActive)
+                    {
+                        <span class="status active">Active &#10003;</span>
+                    }
+                    else
+                    {
+                        <span class="status inactive">Not Active &#10007;</span>
+                    }
+                </p>
+                <button class="completion-status">
+                    @(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")
+                </button>
+            </li>
+        }
     </ul>
 </main>
