@@ -23,30 +23,36 @@
 
 <main>
     <ul>
-        @foreach (var item in Model.Habits)
-        {
-            <li class="list-item">
-                <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">
-                <div class="habit-details">
-                    <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
-                    <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
-                </div>
-                </a>
-                <p class="is-active">
-                    @if (item.IsActive)
-                    {
-                        <span class="status active">Active &#10003;</span>
-                    }
-                    else
-                    {
-                        <span class="status inactive">Inactive &#10007;</span>
-                    }
-                </p>
-                <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
-                    <input type="hidden" name="habitId" value="@item.Id"/>
-                    <input type="submit" class="completion-status" value="@(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
-                </form>
-            </li>
+        @{
+            Model.Habits = Model.Habits.OrderBy(h => Model.RecordsToday.Any(hr => hr.HabitId == h.Id)).ThenBy(h => h.Name).ToList();
+            foreach (var item in Model.Habits)
+            {
+                if (item.IsActive)
+                {
+                    <li class="list-item">
+                        <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">
+                            <div class="habit-details">
+                                <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
+                                <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
+                            </div>
+                        </a>
+                        <p class="is-active">
+                            @if (item.IsActive)
+                            {
+                                <span class="status active">Active &#10003;</span>
+                            }
+                            else
+                            {
+                                <span class="status inactive">Inactive &#10007;</span>
+                            }
+                        </p>
+                        <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
+                            <input type="hidden" name="habitId" value="@item.Id"/>
+                            <input type="submit" class="completion-status" value="@(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
+                        </form>
+                    </li>
+                }
+            }
         }
     </ul>
 </main>
