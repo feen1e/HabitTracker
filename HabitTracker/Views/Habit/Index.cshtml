@@ -27,7 +27,7 @@
             Model.Habits = Model.Habits.OrderBy(h => Model.RecordsToday.Any(hr => hr.HabitId == h.Id)).ThenBy(h => h.Name).ToList();
             foreach (var item in Model.Habits)
             {
-                if (item.IsActive)
+                if (item.IsActive /*&& !item.HabitRecords.Any(hr => hr.Date == DateTime.Today && hr.IsCompleted)*/)
                 {
                     <li class="list-item">
                         <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">

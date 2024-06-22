@@ -1,0 +1,44 @@
+﻿h2 {
+    margin: 50px auto 20px;
+    padding: 50px 50px 10px;
+    font-size: 4.5rem;
+    color: var(--carribeancurrent);
+    font-weight: bolder;
+    text-align: center;
+    text-shadow: 0 0 5px var(--carribeancurrent);
+}
+
+form {
+    width: 30%;
+    margin: 40px auto;
+    font-size: 2.5em;
+}
+
+.form-horizontal {
+    display: flex ;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.field {
+    width: 70%;
+}
+
+.field-label {
+    width: 25%;
+    text-align: right;
+}
+
+.field input {
+    margin: 0;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+}

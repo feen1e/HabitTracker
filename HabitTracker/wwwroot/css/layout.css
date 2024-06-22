@@ -1,19 +1,36 @@
 ﻿:root {
+    /*    --oldrose: #D08F8B;
+        --tearose: #E5C2C0;
+        --emerald: #5CC17E;
+        --shamrockgreen: #329F5B;
+        --seagreen: #0C8346;
+        --carribeancurrent: #0D5D56;*/
     --oldrose: #D08F8B;
     --tearose: #E5C2C0;
     --emerald: #5CC17E;
     --shamrockgreen: #329F5B;
     --seagreen: #0C8346;
-    --carribeancurrent: #0D5D56;
+    --carribeancurrent: #802BB1;
+    --darkcolor: #2d283e;
+}
+
+@font-face {
+    font-family: 'RodinHimawariProUB';
+    src: url("../fonts/RodinHimawariProUB.woff") format("woff"),
+    url("../fonts/RodinHimawariProUB.woff2") format("woff2"),
+    url("../fonts/RodinHimawariProUB.otf") format("opentype");
 }
 
 body {
     box-sizing: border-box;
     font-size: 10px;
+    /*
+        background-size: cover;
+        background: url("../content/animalcrossingleaves.webp") no-repeat;*/
     background: ghostwhite;
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", sans-serif;
+    font-family: "RodinHimawariProUB", "Segoe UI", serif;
 }
 
 header {

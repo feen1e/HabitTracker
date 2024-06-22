@@ -2,46 +2,65 @@
 
 @section Styles
 {
-    <link rel="stylesheet" href="~/css/details.css" />
+    <link rel="stylesheet" href="~/css/details.css"/>
 }
 
 <h2>@Model.Habit.Name</h2>
+<h3 class="smaller-text">@Model.Habit.Amount @Model.Habit.Unit a day</h3>
 
 <main>
-<div class="calendar">
-    <table>
-        <thead>
-        <tr>
-            <th>Mon</th>
-            <th>Tue</th>
-            <th>Wed</th>
-            <th>Thu</th>
-            <th>Fri</th>
-            <th>Sat</th>
-            <th>Sun</th>
-        </tr>
-        </thead>
-        <tbody>
+    <h4>
         @{
-            foreach (var week in Model.CalendarWeeks)
+            var daysCompleted = Model.Habit.HabitRecords.Count(hr => hr.Date.Month == DateTime.Today.Month && hr.IsCompleted);
+            string message;
+            if (daysCompleted > 0)
             {
-                <tr>
-                    @foreach (var day in week.Days)
-                    {
-                        <td class="@day.CssClass">
-                            <form asp-action="ToggleCompletion" method="post">
-                                <input type="hidden" name="habitId" value="@Model.Habit.Id" />
-                                <input type="hidden" name="date" value="@day.Date.ToString("yyyy-MM-dd")" />
-                                <input type="submit" value="@day.DayNumber"/>
-                            </form>
-                        </td>
-                    }
-                </tr>
+                message = $"You've completed this habit <span class=\"highlight\">{daysCompleted}</span> times this month. Congrats 😊";
+            }
+            else
+            {
+                message = "You haven't completed this habit this month yet. Keep trying, you can do it!";
             }
         }
-        </tbody>
-    </table>
-</div>
+        @Html.Raw(message)
+    </h4>
+    <h4>
+        Check your progress:
+    </h4>
+    <div class="calendar">
+        <table>
+            <thead>
+            <tr>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                foreach (var week in Model.CalendarWeeks)
+                {
+                    <tr>
+                        @foreach (var day in week.Days)
+                        {
+                            <td class="@day.CssClass">
+                                <form asp-action="ToggleCompletion" method="post">
+                                    <input type="hidden" name="habitId" value="@Model.Habit.Id"/>
+                                    <input type="hidden" name="date" value="@day.Date.ToString("yyyy-MM-dd")"/>
+                                    <input type="submit" value="@day.DayNumber"/>
+                                </form>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
 </main>
 
 @*<table class="table">
@@ -78,7 +97,3 @@
 <p>
     <a asp-action="Index">Back to List</a>
 </p>
-
-<style>
-
-</style>

@@ -113,6 +113,23 @@ namespace HabitTracker.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var habit = await db.Habits.FindAsync(id);
+            
+            if (habit is null)
+            {
+                return NotFound();
+            }
+
+            var habitRecords = await db.HabitRecords.Where(hr => hr.HabitId == id).ToListAsync();
+            db.HabitRecords.RemoveRange(habitRecords);
+            db.Habits.Remove(habit);
+            await db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
         
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Unit,IsActive")] Habit habit)
         {

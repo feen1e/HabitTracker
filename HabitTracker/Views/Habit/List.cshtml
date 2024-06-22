@@ -32,9 +32,11 @@ ViewBag.Title = "Habit List";
                         <span class="status inactive">Inactive &#10007;</span>
                     }
                 </p>
-                <button class="completion-status">
-                    @(item.IsActive ? (item.HabitRecords.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")
-                </button>
+                <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
+                    <input type="hidden" name="habitId" value="@item.Id"/>
+                    <input type="submit" class="completion-status" value="@(item.IsActive ? (item.HabitRecords.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
+                </form>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </li>
         }
     </ul>
