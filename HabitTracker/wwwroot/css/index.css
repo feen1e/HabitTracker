@@ -16,3 +16,7 @@ main {
 .list-item {
     grid-template-columns: 70% 12% 18% !important;
 }
+
+.list-item:last-of-type{
+    border-bottom: none;
+}
