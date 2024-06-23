@@ -6,59 +6,41 @@
 
 @section Styles
 {
-    <link rel="stylesheet" href="~/css/createAndEdit.css" />
+    <link rel="stylesheet" href="~/css/createAndEdit.css"/>
 }
 
 <h2>Create a new habit</h2>
 
 <main>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "field-label" })
-            <div class="field">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <label asp-for="Name" class="field-label"></label>
+                <input asp-for="Name" class="field"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-        </div>
-        
-        <div class="form-group">
-            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "field-label" })
-            <div class="field">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label asp-for="Amount" class="field-label"></label>
+                <input asp-for="Amount" class="field"/>
+                <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "field-label" })
-            <div class="field">
-                @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label asp-for="Unit" class="field-label"></label>
+                <input asp-for="Unit" class="field"/>
+                <span asp-validation-for="Unit" class="text-danger"></span>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "field-label" })
-            <div class="field">
-                @Html.EditorFor(model => model.IsActive)
-                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            <div class="form-group form-check">
+                <label asp-for="IsActive" class="field-label"></label>
+                <input asp-for="IsActive" class="field" type="checkbox"/>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="">
-                <input type="submit" value="Create" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
             </div>
-        </div>
+        </form>
     </div>
-}
 </main>
 
 <div>
     @Html.ActionLink("Back to List", "List")
 </div>
-

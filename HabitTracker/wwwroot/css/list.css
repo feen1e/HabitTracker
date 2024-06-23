@@ -27,6 +27,7 @@
 .list-item:hover {
     padding: 50px 20px;
     box-shadow: 0 0 20px 10px var(--carribeancurrent);
+    border: none;
 }
 
 .habit-details {

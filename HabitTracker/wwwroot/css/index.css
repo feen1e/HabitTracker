@@ -5,7 +5,6 @@
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
-
     -webkit-text-stroke: var(--carribeancurrent) 2px;
 }
 

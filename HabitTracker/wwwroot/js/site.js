@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿var positions = ["left","center","right"];
+var selected = Math.floor(Math.random()*3);
+document.body.style.backgroundPosition = positions[selected];
 
-// Write your JavaScript code.
+setInterval(function () {
+    var a = Math.floor(Math.random()*100);
+    var b = Math.floor(Math.random()*100);
+    document.body.style.backgroundPosition = a+"% " + b+"%";
+}, 5000)

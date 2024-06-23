@@ -27,13 +27,12 @@ form {
     align-items: baseline;
 }
 
-.field {
-    width: 70%;
-}
-
 .field-label {
     width: 25%;
-    text-align: right;
+    text-align: left;
+    font-size: 1.2em;
+    color: var(--carribeancurrent);
+    
 }
 
 .field input {
