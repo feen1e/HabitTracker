@@ -115,9 +115,10 @@ namespace HabitTracker.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var habit = await db.Habits.FindAsync(id);
+            var habit = await db.Habits.FirstOrDefaultAsync(h => h.Id == id);
             
             if (habit is null)
             {
@@ -128,9 +129,21 @@ namespace HabitTracker.Controllers
             db.HabitRecords.RemoveRange(habitRecords);
             db.Habits.Remove(habit);
             await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
         
+        public IActionResult Edit(int id)
+        {
+            var habit = db.Habits.FirstOrDefault(h => h.Id == id);
+            if (habit is null)
+            {
+                return NotFound();
+            }
+            return View(habit);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Unit,IsActive")] Habit habit)
         {
             if (id != habit.Id)
@@ -142,7 +155,15 @@ namespace HabitTracker.Controllers
             {
                 try
                 {
-                    db.Update(habit);
+                    var existingHabit = await db.Habits.FindAsync(id);
+                    if (existingHabit == null)
+                    {
+                        return NotFound();
+                    }
+                    existingHabit.Name = habit.Name;
+                    existingHabit.Amount = habit.Amount;
+                    existingHabit.Unit = habit.Unit;
+                    existingHabit.IsActive = habit.IsActive;
                     await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -157,7 +178,7 @@ namespace HabitTracker.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
 
             return View(habit);

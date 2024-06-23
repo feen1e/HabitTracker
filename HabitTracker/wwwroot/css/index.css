@@ -5,9 +5,14 @@
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
-    text-shadow: 0 0 5px var(--carribeancurrent);
+
+    -webkit-text-stroke: var(--carribeancurrent) 2px;
 }
 
 main {
     min-height: auto !important;
+}
+
+.list-item {
+    grid-template-columns: 70% 12% 18% !important;
 }

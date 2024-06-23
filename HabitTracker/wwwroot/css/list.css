@@ -13,7 +13,7 @@
 .list-item {
     box-sizing: border-box;
     display: inline-grid;
-    grid-template-columns: 70% 12% 18%;
+    grid-template-columns: 60% 12% 18% 5% 5%;
     margin: auto;
     width: 100%;
     padding: 30px 20px;
@@ -87,14 +87,41 @@
     background-color: var(--shamrockgreen);
 }
 
+.habit-disabled {
+    background-color: var(--grayblue);
+}
+
+.habit-disabled:hover {
+    background-color: var(--grayblue);
+    cursor: default;
+}
+
+.edit-button {
+    background: url("../svgs/edit.svg");
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
+.delete-button {
+    background: url("../svgs/trash.svg") transparent;
+    border: none;
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+}
+
 h2 {
     margin: 50px auto 20px;
     padding: 50px 50px 10px;
-    font-size: 4.5rem;
+    font-size: 5rem;
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
-    text-shadow: 0 0 5px var(--carribeancurrent);
 }
 
 h4 {
@@ -104,7 +131,6 @@ h4 {
     color: var(--carribeancurrent);
     font-weight: bold;
     text-align: center;
-    text-shadow: 0 0 5px var(--carribeancurrent);
 }
 
 a{

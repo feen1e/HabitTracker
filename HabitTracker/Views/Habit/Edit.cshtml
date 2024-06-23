@@ -4,43 +4,47 @@
     ViewBag.Title = "Edit Habit";
 }
 
-<h2>Edit Habit</h2>
+@section Styles
+{
+    <link rel="stylesheet" href="~/css/createAndEdit.css"/>
+}
 
-<h4>Habit</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<h2>Edit @Model.Name</h2>
+
+<main>
+    <div class=form-horizontal>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="field-label"></label>
+                <input asp-for="Name" class="field"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
+                <label asp-for="Amount" class="field-label"></label>
+                <input asp-for="Amount" class="field"/>
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Unit" class="control-label"></label>
-                <input asp-for="Unit" class="form-control" />
+                <label asp-for="Unit" class="field-label"></label>
+                <input asp-for="Unit" class="field"/>
                 <span asp-validation-for="Unit" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <input asp-for="IsActive" class="form-check-input" />
-                <label asp-for="IsActive" class="form-check-label"></label>
+                <input asp-for="IsActive" class="field"/>
+                <label asp-for="IsActive" class="field-label"></label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class=""/>
             </div>
         </form>
     </div>
-</div>
+</main>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

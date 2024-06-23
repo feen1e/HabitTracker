@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<HabitTracker.Models.Habit>
 
 @{
-ViewBag.Title = "Habit List";
+    ViewBag.Title = "Habit List";
 }
 
 @section Styles
 {
-<link rel="stylesheet" href="~/css/list.css" />
+    <link rel="stylesheet" href="~/css/list.css"/>
 }
 
 <h2>Your Habits</h2>
@@ -32,14 +32,29 @@ ViewBag.Title = "Habit List";
                         <span class="status inactive">Inactive &#10007;</span>
                     }
                 </p>
-                <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
-                    <input type="hidden" name="habitId" value="@item.Id"/>
-                    <input type="submit" class="completion-status" value="@(item.IsActive ? (item.HabitRecords.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
+                @{
+                    if (item.IsActive)
+                    {
+                        <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
+                            <input type="hidden" name="habitId" value="@item.Id"/>
+                            <input type="submit" class="completion-status" value="@(item.HabitRecords.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed")"/>
+                        </form>
+                    }
+                    else
+                    {
+                        <input type="submit" disabled="disabled" value="Habit inactive" class="completion-status habit-disabled" />
+                    }
+                }
+                <a class="edit-button" asp-controller="Habit" asp-action="Edit" asp-route-id="@item.Id"></a>
+                <form asp-controller="Habit" asp-action="DeleteConfirmed" method="post" onsubmit="return confirm('Are you sure you want to delete this habit?');">
+                    <input type="hidden" name="id" value="@item.Id"/>
+                    <button type="submit" class="delete-button"></button>
                 </form>
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </li>
         }
     </ul>
-    
-    <h4><a asp-controller="Habit" asp-action="Create">Add another</a></h4>
+
+    <h4>
+        <a asp-controller="Habit" asp-action="Create">Add another</a>
+    </h4>
 </main>
