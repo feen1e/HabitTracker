@@ -13,6 +13,7 @@
     --carribeancurrent: #2e9cca;
     --darkcolor: #25274d;
     --grayblue: #aaabb8;
+    --verylightblue: rgba(191, 223, 255, 0.25);
 }
 
 @font-face {

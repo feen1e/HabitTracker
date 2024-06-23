@@ -42,7 +42,7 @@
                     }
                     else
                     {
-                        <input type="submit" disabled="disabled" value="Habit inactive" class="completion-status habit-disabled" />
+                        <input type="submit" disabled="disabled" value="Habit inactive" class="completion-status habit-disabled"/>
                     }
                 }
                 <a class="edit-button" asp-controller="Habit" asp-action="Edit" asp-route-id="@item.Id"></a>
@@ -52,9 +52,8 @@
                 </form>
             </li>
         }
+        <li class="list-item create-button">
+            <a asp-controller="Habit" asp-action="Create">Add another</a>
+        </li>
     </ul>
-
-    <h4>
-        <a asp-controller="Habit" asp-action="Create">Add another</a>
-    </h4>
 </main>

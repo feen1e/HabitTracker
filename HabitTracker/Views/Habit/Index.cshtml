@@ -13,7 +13,7 @@
 <h1 id="habitsRemaining">
     @if (Model.HabitsRemainingToday > 0)
     {
-        @($"You have {Model.HabitsRemainingToday} habits remaining today.")
+        @($"You have {Model.HabitsRemainingToday} habit{(Model.HabitsRemainingToday == 1 ? "" : "s")} remaining today.")
     }
     else
     {

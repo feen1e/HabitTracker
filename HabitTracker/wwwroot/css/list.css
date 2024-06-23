@@ -24,10 +24,29 @@
     transition: padding 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+.list-item:last-of-type{
+    border-bottom: none;
+}
+
 .list-item:hover {
     padding: 50px 20px;
     box-shadow: 0 0 20px 10px var(--carribeancurrent);
     border: none;
+}
+
+.create-button {
+    grid-template-columns: 100%;
+}
+
+.create-button a {
+    width: 100%;
+    height: 100%;
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+    color: var(--carribeancurrent);
+    font-weight: bold;
+    text-align: center;
 }
 
 .habit-details {
@@ -136,15 +155,6 @@ h2 {
     font-size: 5rem;
     color: var(--carribeancurrent);
     font-weight: bolder;
-    text-align: center;
-}
-
-h4 {
-    font-size: 3em;
-    margin: 20px auto;
-    padding: 20px;
-    color: var(--carribeancurrent);
-    font-weight: bold;
     text-align: center;
 }
 

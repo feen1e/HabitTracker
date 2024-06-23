@@ -18,7 +18,6 @@ h2 {
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
-    text-shadow: 0 0 5px var(--carribeancurrent);
 }
 
 .smaller-text {
@@ -36,7 +35,7 @@ h4{
 }
 
 .highlight {
-    color: var(--emerald);
+    color: var(--carribeancurrent);
     padding: 0 5px;
     font-weight: bold;
     font-size: 1.5em;
@@ -45,10 +44,10 @@ h4{
 .calendar {
     border-radius: 30px;
     padding: 0;
-    margin: -20px auto 20px;
+    margin: -20px auto 60px;
     width: 60%;
     overflow: hidden;
-    border: solid 2px var(--shamrockgreen);
+    border: solid 2px var(--darkcolor);
 }
 
 .calendar table {
@@ -59,7 +58,7 @@ h4{
 
 .calendar th,
 .calendar td {
-    outline: 1px solid var(--shamrockgreen);
+    outline: 1px solid var(--darkcolor);
     margin: 0;
     text-align: center;
     padding: 5px;
@@ -69,14 +68,61 @@ h4{
 }
 
 .calendar .marked {
-    background-color: var(--emerald);
+    background-color: rgba(46, 156, 202, 0.5);
 }
 
 .calendar .not-marked {
-    background-color: var(--tearose);
+    background-color: var(--verylightblue) ;
 }
 
 .calendar .previous-month {
-    color: #ccc;
+    color: gray;
     background: lightgray;
 }
+
+.actions {
+    width: 60%;
+    margin: 0 auto 40px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: calc(100% / 3) calc(100% / 3) calc( 100% / 3);
+}
+
+.actions div {
+    margin: 0 auto;
+    width: 80%;
+    height: 50px;
+    background: ghostwhite;
+    border: solid 2px var(--carribeancurrent);
+    border-radius: 50px;
+    box-shadow: 0 0 10px 5px var(--carribeancurrent);
+    color: var(--carribeancurrent);
+    font-size: 2.5em;
+}
+
+.actions a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 10px;
+}
+
+img {
+    position: relative;
+    top: 2px;
+}
+
+.actions div button {
+    background: inherit;
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.actions div {
+    padding: 12px 0 0;
+}
+

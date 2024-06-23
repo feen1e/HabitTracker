@@ -1,7 +1,7 @@
 ﻿h1 {
     margin: 100px auto;
     padding: 100px;
-    font-size: 5.5rem;
+    font-size: 5rem;
     color: var(--carribeancurrent);
     font-weight: bolder;
     text-align: center;
@@ -14,8 +14,4 @@ main {
 
 .list-item {
     grid-template-columns: 70% 12% 18% !important;
-}
-
-.list-item:last-of-type{
-    border-bottom: none;
 }
