@@ -16,22 +16,28 @@
         <form asp-action="Create" method="post">
             @Html.AntiForgeryToken()
             <div class="form-group">
-                <label asp-for="Name" class="field-label"></label>
-                <input asp-for="Name" class="field"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Name" class="field-label">Name:</label>
+                <div class="field-group">
+                    <input asp-for="Name" class="field"/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Amount" class="field-label"></label>
-                <input asp-for="Amount" class="field"/>
-                <span asp-validation-for="Amount" class="text-danger"></span>
+                <label asp-for="Amount" class="field-label">Amount:</label>
+                <div class="field-group">
+                    <input asp-for="Amount" class="field"/>
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Unit" class="field-label"></label>
-                <input asp-for="Unit" class="field"/>
-                <span asp-validation-for="Unit" class="text-danger"></span>
+                <label asp-for="Unit" class="field-label">Unit:</label>
+                <div class="field-group">
+                    <input asp-for="Unit" class="field"/>
+                    <span asp-validation-for="Unit" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group form-check">
-                <label asp-for="IsActive" class="field-label"></label>
+                <label asp-for="IsActive" class="field-label">Mark as active?</label>
                 <input asp-for="IsActive" class="field" type="checkbox"/>
             </div>
             <div class="form-group">
@@ -41,6 +47,8 @@
     </div>
 </main>
 
-<div>
-    @Html.ActionLink("Back to List", "List")
+<div class="actions">
+    <div>
+        <a asp-action="List"><img src="~/svgs/chevrons-left.svg" alt="two arrows pointing left"/> Back to List </a>
+    </div>
 </div>

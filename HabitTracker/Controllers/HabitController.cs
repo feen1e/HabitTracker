@@ -129,7 +129,7 @@ namespace HabitTracker.Controllers
             db.HabitRecords.RemoveRange(habitRecords);
             db.Habits.Remove(habit);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
         
         public IActionResult Edit(int id)
@@ -178,7 +178,7 @@ namespace HabitTracker.Controllers
                     }
                 }
 
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
 
             return View(habit);

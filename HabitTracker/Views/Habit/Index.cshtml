@@ -10,10 +10,19 @@
     <link rel="stylesheet" href="~/css/list.css"/>
 }
 
+@if (Model.Habits.Count == 0)
+{
+    <div style="min-height: 10vh"></div>
+}
+
 <h1 id="habitsRemaining">
     @if (Model.HabitsRemainingToday > 0)
     {
         @($"You have {Model.HabitsRemainingToday} habit{(Model.HabitsRemainingToday == 1 ? "" : "s")} remaining today.")
+    }
+    else if (Model.Habits.Count == 0)
+    {
+        @Html.Raw("You're not tracking any habits yet. <br> Add one to get started!")
     }
     else
     {
@@ -21,38 +30,53 @@
     }
 </h1>
 
-<main>
-    <ul>
-        @{
-            Model.Habits = Model.Habits.OrderBy(h => Model.RecordsToday.Any(hr => hr.HabitId == h.Id)).ThenBy(h => h.Name).ToList();
-            foreach (var item in Model.Habits)
-            {
-                if (item.IsActive /*&& !item.HabitRecords.Any(hr => hr.Date == DateTime.Today && hr.IsCompleted)*/)
+@if (Model.Habits.Count > 0)
+{
+    <main>
+        <ul>
+            @{
+                Model.Habits = Model.Habits.OrderBy(h => Model.RecordsToday.Any(hr => hr.HabitId == h.Id)).ThenBy(h => h.Name).ToList();
+                foreach (var item in Model.Habits)
                 {
-                    <li class="list-item">
-                        <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">
-                            <div class="habit-details">
-                                <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
-                                <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
-                            </div>
-                        </a>
-                        <p class="is-active">
-                            @if (item.IsActive)
-                            {
-                                <span class="status active">Active &#10003;</span>
-                            }
-                            else
-                            {
-                                <span class="status inactive">Inactive &#10007;</span>
-                            }
-                        </p>
-                        <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
-                            <input type="hidden" name="habitId" value="@item.Id"/>
-                            <input type="submit" class="completion-status" value="@(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
-                        </form>
-                    </li>
+                    if (item.IsActive /*&& !item.HabitRecords.Any(hr => hr.Date == DateTime.Today && hr.IsCompleted)*/)
+                    {
+                        <li class="list-item">
+                            <a asp-controller="Habit" asp-action="Details" asp-route-id="@item.Id">
+                                <div class="habit-details">
+                                    <h3 class="name">@Html.DisplayFor(i => item.Name)</h3>
+                                    <p class="amount-unit">@Html.DisplayFor(i => item.Amount) @Html.DisplayFor(i => item.Unit)</p>
+                                </div>
+                            </a>
+                            <p class="is-active">
+                                @if (item.IsActive)
+                                {
+                                    <span class="status active">Active &#10003;</span>
+                                }
+                                else
+                                {
+                                    <span class="status inactive">Inactive &#10007;</span>
+                                }
+                            </p>
+                            <form asp-controller="Habit" asp-action="ToggleCompletionToday" method="post">
+                                <input type="hidden" name="habitId" value="@item.Id"/>
+                                <input type="submit" class="completion-status" value="@(item.IsActive ? (Model.RecordsToday.Any(r => r.HabitId == item.Id) ? "Completed" : "Not Completed") : "Not Applicable")"/>
+                            </form>
+                        </li>
+                    }
                 }
             }
-        }
-    </ul>
-</main>
+        </ul>
+    </main>
+}
+@if (Model.Habits.Count <= 1)
+{
+    <div style="min-height: 25vh"></div>
+}
+@if (Model.Habits.Count == 2)
+{
+    <div style="min-height: 13vh"></div>
+}
+@if (Model.Habits.Count == 3)
+{
+    <div style="min-height: 2vh"></div>
+}
