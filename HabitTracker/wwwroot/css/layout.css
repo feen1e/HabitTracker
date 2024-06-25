@@ -1,10 +1,4 @@
 ﻿:root {
-    /*    --oldrose: #D08F8B;
-        --tearose: #E5C2C0;
-        --emerald: #5CC17E;
-        --shamrockgreen: #329F5B;
-        --seagreen: #0C8346;
-        --carribeancurrent: #0D5D56;*/
     --oldrose: #ec4539;
     --tearose: #ec4539;
     --emerald: #4eb372;
@@ -17,23 +11,22 @@
 }
 
 @font-face {
-    font-family: 'RodinHimawariProUB';
+    font-family: "RodinHimawariProUB";
     src: url("../fonts/RodinHimawariProUB.woff") format("woff"),
     url("../fonts/RodinHimawariProUB.woff2") format("woff2"),
-    url("../fonts/RodinHimawariProUB.otf") format("opentype");
+    url("../fonts/RodinHimawariProUB.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 body {
     box-sizing: border-box;
     font-size: 10px;
-    /*
-        background-size: cover;
-        background: url("../content/animalcrossingleaves.webp") no-repeat;*/
     background: url("../svgs/background.jpg") ghostwhite;
     background-size: cover;
     margin: 0;
     padding: 0;
-    font-family: "RodinHimawariProUB", "Segoe UI", serif;
+    font-family: "RodinHimawariProUB", "Segoe UI", serif !important;
     transition: background-position 5s linear;
 }
 
@@ -42,6 +35,7 @@ header {
 }
 
 nav {
+    z-index: 100;
     color: ghostwhite;
     font-size: 3em;
     position: fixed;
@@ -126,4 +120,12 @@ footer {
     justify-content: center;
     font-size: 2em;
     color: ghostwhite;
+}
+
+dialog {
+    background: ghostwhite;
+    color: var(--carribeancurrent);
+    border: 1px solid var(--carribeancurrent);
+    border-radius: 50px;
+    font-size: 2em;
 }

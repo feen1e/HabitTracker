@@ -36,10 +36,10 @@ namespace HabitTracker.Controllers
                 }
                 foreach (var a in habit.HabitRecords.Select(hr => hr))
                 {
-                    Console.WriteLine($"{a.Date} === {DateTime.Today} wykonany: {(a.IsCompleted ? "tak" : "nie")}");
+                    // Console.WriteLine($"{a.Date} === {DateTime.Today} wykonany: {(a.IsCompleted ? "tak" : "nie")}");
                 };
             }
-            Console.WriteLine(habitsRemaining + " pozostalo");
+            // Console.WriteLine(habitsRemaining + " pozostalo");
             var habitHome = new HabitHomeView(habits, habitsRemaining, habitRecordsToday);
             
             return View(habitHome);
